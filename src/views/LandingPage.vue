@@ -1,8 +1,7 @@
 <template>
-    <div class="fixed top-0 right-1 w-full h-14 flex justify-end items-center gap-8 pr-10 shadow-lg bg-white "><LandingTopOptiionsVue></LandingTopOptiionsVue></div>
-    <div class="flex flex-col items-end h-auto p-20">
-        <MeetingList></MeetingList>
-    </div>
+    <LandingTopOptiionsVue></LandingTopOptiionsVue>
+    <MeetingList></MeetingList>
+
 </template>
 
 <script setup>

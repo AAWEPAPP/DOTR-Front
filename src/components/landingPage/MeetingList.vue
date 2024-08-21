@@ -1,9 +1,8 @@
 <template>
-    <ol class="flex flex-col items-center justify-center gap-4 font-roboto w-1/5 h-auto">
-        <li v-for="event in events" :key="event.name" class="w-full flex flex-wrap flex-col justify-center items-center gap-4 border shadow-md shadow-gray-400 p-2 flex-grow rounded-lg  ">
+    <ol class="flex flex-col justify-center gap-4 font-roboto w-full h-full -mt-36 ">
+        <li v-for="event in events" :key="event.name" class="flex flex-col justify-center items-center ">
             <h1 class="text-lg font-medium">{{event.name}}</h1>
             <p class="text-md">{{event.date}} at: {{event.time}}</p>
-            <div class="flex-shrink-0  text-wrap"><p class="text-sm ">{{ event.description }}</p></div>
         </li>
     </ol>
     

@@ -1,0 +1,59 @@
+TABLES:
+    Users:
+        id: Primary Key
+        FirstName: String,
+        LastName: String,
+        Email: String,
+        Password: String,
+        CellPhoneNumber: Int
+        CellCarrier: String,
+        ContactMethod: [String],
+        Status: String default pending,
+        Roll: Not Null default user,
+    Events
+        Id: Primary Key
+        Title: String,
+        Location: String,
+        Date/Time: DateTime,
+        Description: String
+
+/api/auth/Register-
+    *POST api/auth/register -> request body contains {
+        FirstName: String,
+        LastName: String,
+        Email: String,
+        Password: String,
+        CellPhoneNumber: Int
+        CellCarrier: String,
+        ContactMethod: [String],
+    }.
+    response{
+        username: user.username,
+        userId: user.Id,
+        email: user.email,
+    }
+
+/api/auth/login-
+    *POST api/auth/login -> 
+    request body{
+        email, 
+        Password,
+    },
+    response{
+        email,
+        userId: user.Id,
+        JWT with email, userId set to a HTTPOnly cookie,
+        if user.status = "approved" auth, else 403
+        find user by email: if !user 404
+    }
+
+/api/users-
+    *GET /api/users -> protected route user must be authed with "admin" role,returns all users
+    *PUT /api/users/:id -> user password is added to user table after approval
+
+/api/events-
+    *GET /api/events -> return all events 
+    *GET /api/events/:id -> return specific event
+    *POST /api/events -> protected route user must be authed with "admin" role,l create new event
+    *PUT /api/events/:id -> protected route user must be authed with "admin" role, update event by id 
+    *DELETE /api/events/:id -> protected route user must be authed with "admin" role, delete event 
