@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen w-screen flex flex-row gap-6 justify-center content-center flex-wrap font-roboto">
+    <div class="h-auto w-full flex flex-col gap-6 justify-center content-center flex-wrap font-roboto">
         <form @submit.prevent class=" p-6 flex flex-col gap-6 justify-center items-center content-center h-auto w-auto flex-wrap" >
             <h1 class="text-center">Sign In</h1>
             <InputText class="shadow-md p-2 rounded-md w-60 hover:shadow-lg hover:cursor-pointer focus:outline-none focus:border-b focus:border-blue-500 focus:rounded-b-none" id="email" v-model="email"
