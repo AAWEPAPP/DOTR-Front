@@ -42,6 +42,7 @@ import { useRouter } from 'vue-router';
 const isMenuOpen = ref(false);
 const router = useRouter();
 
+
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
@@ -53,4 +54,5 @@ const handleRegister = () => {
 const handleLogin = () => {
   router.push('/login');
 };
+
 </script>

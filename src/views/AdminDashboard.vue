@@ -1,29 +1,48 @@
 <template>
-    <div class="p-4 max-w-xl mx-auto">
-        <TabView>
-          <TabPanel header="Tab 1" class="p-4">
-            <div class="text-lg font-semibold mb-2">Content for Tab 1</div>
-            <p class="text-gray-700">
-              This is the content inside the first tab. You can style it with Tailwind classes.
-            </p>
-          </TabPanel>
-          <TabPanel header="Tab 2" class="p-4">
-            <div class="text-lg font-semibold mb-2">Content for Tab 2</div>
-            <p class="text-gray-700">
-              This is the content inside the second tab.
-            </p>
-          </TabPanel>
-          <TabPanel header="Tab 3" class="p-4">
-            <div class="text-lg font-semibold mb-2">Content for Tab 3</div>
-            <p class="text-gray-700">
-              This is the content inside the third tab.
-            </p>
-          </TabPanel>
-        </TabView>
+  <div class="p-4  mx-auto">
+    <div class="border-b border-gray-300">
+        <button
+          v-for="(tab, index) in tabs"
+          :key="index"
+          @click="activeTab = index"
+          :class="[
+            'py-2 px-4 focus:outline-none transition-colors duration-300',
+            activeTab === index
+              ? 'border-b-2 border-blue-500 text-blue-500'
+              : 'text-gray-600 hover:text-blue-500'
+          ]"
+        >
+          {{ tab }}
+        </button>
+    </div>
+
+    <div class="mt-4">
+      <div v-if="activeTab === 0" class="flex justify-center items-center p-4 bg-white rounded shadow">
+        <Events />
       </div>
+      <div v-if="activeTab === 1" class="p-4 bg-white rounded shadow">
+        
+      </div>
+      <div v-if="activeTab === 2" class="p-4 bg-white rounded shadow">
+        
+      </div>
+    </div>
+  </div>
 </template>
 
-<script>
-    import TabView from 'primevue/tabview';
-    import TabPanel from 'primevue/tabpanel';
+<script setup>
+import { ref } from 'vue';
+import Events from '../components/AdminDashboard/Events.vue';
+
+const tabs = ref(['Events', 'Users', 'Tab 3']);
+
+const activeTab = ref(0);
+
+const props = defineProps({
+    isAdminVisible: { type: Boolean, default: false }
+  });
+
+const handleClose = () => {
+    props.isAdminVisible = false;
+}
 </script>
