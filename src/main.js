@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import PrimeVue from "primevue/config";
-import Noir from "./presets/Noir";
 import App from "./App.vue";
 import router from "./router";
 import "./assets/tailwind.css";
@@ -21,7 +20,9 @@ import {
 	faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faHouse, faX, faUser, faCalendar, faPen, faArrowLeft);
+import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
+
+library.add(faHouse, faX, faUser, faCalendar, faPen, faArrowLeft, faSquarePlus);
 
 const app = createApp(App);
 
@@ -29,7 +30,7 @@ app.component("TabView", TabView);
 app.component("TabPanel", TabPanel);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
-library.add(faCalendar, faPen, faUser, faX, faHouse, faArrowLeft);
+library.add(faCalendar, faPen, faUser, faX, faHouse, faArrowLeft, faSquarePlus);
 
 app.use(router);
 app.use(PrimeVue, {
