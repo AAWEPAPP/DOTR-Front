@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full">
+  <div class="w-full h-full">
     <button 
       @click="showCreateEventForm = true" 
-      class="bg-blue-500 text-white p-2 rounded mb-4"
+      class="bg-blue-500 text-white p-2 rounded mb-4 text-center text-md"
       v-if="!showCreateEventForm"
     >
-      New Event
+    <font-awesome-icon icon="fa-regular fa-square-plus" />  Add
     </button>
 
     <CreateEvent 
@@ -14,14 +14,14 @@
       @cancelCreation="showCreateEventForm = false"
     />
 
-    <div class="w-full display flex flex-col justify-start items-center">
-      <div v-for="event in events" :key="event.id" class="w-full mb-4 p-4 border rounded shadow-sm shadow-slate-500">
-        <div class="w-full">
+    <div class="w-full flex flex-col justify-start items-center">
+      <div v-for="event in events" :key="event.id" class="w-full flex justify-between items-center mb-4 p-4 border rounded shadow-sm shadow-slate-500">
+        <div>
           <div v-if="event.isEditing">
             <input 
               type="text" 
               v-model="event.tempTitle" 
-              class="border rounded p-2 mb-2 w-full shadow-sm shadow-slate-500"
+              class="border rounded p-2 w-full shadow-sm shadow-slate-500"
             />
           </div>
           <div v-else>
@@ -29,37 +29,26 @@
           </div>
         </div>
         
-        <div>
-          <div v-if="event.isEditing">
-            <textarea 
-              v-model="event.tempDescription" 
-              class="border rounded p-2 w-full shadow-sm shadow-slate-500"
-            ></textarea>
-          </div>
-          <div v-else>
-            <p>{{ event.description }}</p>
-          </div>
-        </div>
         
         <div>
           <div v-if="event.isEditing">
             <Datepicker 
-              v-model="event.tempDate" 
-              :value="event.tempDate" 
-              class="border rounded p-2 w-full shadow-sm shadow-slate-500"
+            v-model="event.tempDate" 
+            :value="event.tempDate" 
+            class="border rounded p-2 w-full shadow-sm shadow-slate-500"
             />
           </div>
           <div v-else>
             <p>{{ event.date.toLocaleDateString() }}</p>
           </div>
         </div>
-
+        
         <div>
           <div v-if="event.isEditing">
             <input 
-              type="time" 
-              v-model="event.tempTime" 
-              class="border rounded p-2 w-full shadow-sm shadow-slate-500"
+            type="time" 
+            v-model="event.tempTime" 
+            class="border rounded p-2 w-full shadow-sm shadow-slate-500"
             />
           </div>
           <div v-else>
@@ -67,35 +56,46 @@
           </div>
         </div>
         
-        <div class="mt-4 flex space-x-2">
+        <div>
+          <div v-if="event.isEditing">
+            <textarea 
+              v-model="event.tempDescription" 
+              class="h-full border rounded p-2 w-full shadow-sm shadow-slate-500"
+            ></textarea>
+          </div>
+          <div v-else>
+            <p>{{ event.description }}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4 justify-end">
           <button 
             v-if="event.isEditing" 
             @click="confirmEdit(event)" 
-            class="bg-green-500 text-white p-2 rounded"
+            class="text-green-500"
           >
-            Confirm
+            <font-awesome-icon icon="fa-solid fa-check" />
           </button>
           <button 
             v-else 
             @click="editEvent(event)" 
-            class="bg-blue-500 text-white p-2 rounded"
+            class="text-blue-500"
           >
-            Edit
+          <font-awesome-icon icon="fa-solid fa-pen" />
           </button>
 
           <button 
             v-if="event.isEditing" 
             @click="cancelEdit(event)" 
-            class="bg-red-500 text-white p-2 rounded"
+            class="text-red-500"
           >
-            Close
+          <font-awesome-icon icon="fa-solid fa-x" />
           </button>
           <button 
             v-else 
             @click="deleteEvent(event.id)" 
-            class="bg-red-500 text-white p-2 rounded"
+            class="text-red-500"
           >
-            Delete
+          <font-awesome-icon icon="fa-solid fa-trash-can" />
           </button>
         </div>
       </div>

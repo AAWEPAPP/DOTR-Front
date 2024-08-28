@@ -1,7 +1,7 @@
 <template>
   <div 
+    v-if="isVisible"
     class="fixed inset-0 bg-white bg-opacity-90 p-4 z-50 overflow-auto"
-    @click.self="handleClose"
   >
     <div class="w-full max-w-4xl mx-auto bg-white rounded shadow-lg max-h-screen overflow-y-auto">
       <div class="border-b border-gray-300 flex justify-between items-center">
@@ -21,7 +21,7 @@
           </button>
         </div>
         <button 
-          @click="handleClose"
+          @click="closeDashboard"
           class="text-gray-600 hover:text-red-500 focus:outline-none transition-colors duration-300 p-2"
           aria-label="Close admin dashboard"
         >
@@ -45,11 +45,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, watch } from 'vue';
 import Events from '../components/AdminDashboard/Events.vue';
 
 const tabs = ref(['Events', 'Users', 'Tab 3']);
 const activeTab = ref(0);
+
+const isVisible = ref(false);
 
 const props = defineProps({
   isAdminVisible: { type: Boolean, default: false }
@@ -57,33 +59,16 @@ const props = defineProps({
 
 const emit = defineEmits(['update:isAdminVisible']);
 
-const handleClose = () => {
+const closeDashboard = () => {
   emit('update:isAdminVisible', false);
 };
 
-const disableScroll = () => {
-  document.body.style.overflow = 'hidden';
-};
-
-const enableScroll = () => {
-  document.body.style.overflow = '';
-};
-
-onMounted(() => {
-  if (props.isAdminVisible) {
-    disableScroll();
-  }
-});
-
-onBeforeUnmount(() => {
-  enableScroll();
-});
-
 watch(() => props.isAdminVisible, (newVal) => {
+  isVisible.value = newVal;
   if (newVal) {
-    disableScroll();
+    document.body.style.overflow = 'hidden';
   } else {
-    enableScroll();
+    document.body.style.overflow = '';
   }
 });
 </script>

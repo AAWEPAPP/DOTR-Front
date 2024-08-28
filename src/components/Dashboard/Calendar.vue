@@ -1,8 +1,8 @@
 <template>
-  <div class="calendar-container w-full h-auto max-w-full mx-auto p-4">
+  <div class="calendar-container max-w-full mx-auto p-4">
     <div class="header flex justify-between items-center mb-4">
       <button @click="prevMonth" class="bg-gray-300 text-gray-700 p-2 rounded shadow hover:bg-gray-400">&lt;</button>
-      <h2 class="text-lg font-bold">{{ monthYear }}</h2>
+      <h2 class="text-lg font-bold text-gray-800">{{ monthYear }}</h2>
       <button @click="nextMonth" class="bg-gray-300 text-gray-700 p-2 rounded shadow hover:bg-gray-400">&gt;</button>
     </div>
     
@@ -12,19 +12,34 @@
       </div>
       
       <div v-for="day in blankDays" :key="day" class="empty-day"></div>
+      
       <div v-for="day in daysInMonth" :key="day.date" class="day-cell border p-2 rounded shadow-sm relative">
         <div class="text-gray-800">{{ day.day }}</div>
-        <div v-for="event in day.events" :key="event.id" class="event bg-blue-500 text-white text-sm p-1 rounded shadow">
+        <div 
+          v-for="event in day.events" 
+          :key="event.id" 
+          class="event bg-blue-500 text-white text-sm p-1 mt-2 rounded shadow cursor-pointer hover:bg-blue-600 transition-colors duration-200"
+          @click="showEventDetails(event)"
+        >
           {{ event.title }} - {{ event.time }}
         </div>
       </div>
     </div>
+
+    <!-- Event Details Modal -->
+    <EventDetailsModal 
+      v-if="selectedEvent" 
+      :event="selectedEvent" 
+      :isVisible="isModalVisible" 
+      @close="closeModal" 
+    />
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, addMonths, subMonths, isSameMonth, isSameDay } from 'date-fns';
+import EventDetailsModal from './EventDetailsModal.vue';
 
 const currentDate = ref(new Date());
 const events = ref([
@@ -80,6 +95,20 @@ const prevMonth = () => {
 
 const nextMonth = () => {
   currentDate.value = addMonths(currentDate.value, 1);
+};
+
+// State to manage selected event and modal visibility
+const selectedEvent = ref(null);
+const isModalVisible = ref(false);
+
+const showEventDetails = (event) => {
+  selectedEvent.value = event;
+  isModalVisible.value = true;
+};
+
+const closeModal = () => {
+  isModalVisible.value = false;
+  selectedEvent.value = null;
 };
 </script>
 

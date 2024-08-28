@@ -18,19 +18,29 @@ import {
 	faX,
 	faHouse,
 	faArrowLeft,
+	faTrashCan,
+	faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 
-library.add(faHouse, faX, faUser, faCalendar, faPen, faArrowLeft, faSquarePlus);
+library.add(
+	faHouse,
+	faX,
+	faUser,
+	faCalendar,
+	faPen,
+	faArrowLeft,
+	faSquarePlus,
+	faTrashCan,
+	faCheck
+);
 
 const app = createApp(App);
 
 app.component("TabView", TabView);
 app.component("TabPanel", TabPanel);
 app.component("font-awesome-icon", FontAwesomeIcon);
-
-library.add(faCalendar, faPen, faUser, faX, faHouse, faArrowLeft, faSquarePlus);
 
 app.use(router);
 app.use(PrimeVue, {
