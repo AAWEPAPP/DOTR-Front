@@ -22,7 +22,7 @@
     </div>
 
     <div class="hidden md:flex space-x-4">
-      <RegisterBtn :onClick="handleRegister" class="p-1 w-20 text-black rounded-md border border-gray-700 shadow-lg hover:bg-blue-600 hover:text-white hover:border-none h-8"></RegisterBtn>
+      <RegisterBtn :onClick="handleRegister" class="p-1 w-20 text-black rounded-md border border-gray-700 hover:bg-blue-600 hover:text-white hover:border-none  hover:shadow-md h-8"></RegisterBtn>
       <LoginBtn :onClick="handleLogin"></LoginBtn>
     </div>
 

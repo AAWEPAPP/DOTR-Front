@@ -15,7 +15,7 @@
     />
 
     <div class="w-full flex flex-col justify-start items-center">
-      <div v-for="event in events" :key="event.id" class="w-full flex flex-col justify-center gap-4 md:flex md:justify-between md:items-center mb-4 p-4 border rounded shadow-sm shadow-slate-500">
+      <div v-for="event in events" :key="event.id" class="w-full flex flex-col justify-center gap-4 md:flex md:justify-between md:items-center md:flex-row mb-4 p-4 border rounded shadow-sm shadow-slate-500">
         <div>
           <div v-if="event.isEditing">
             <input 

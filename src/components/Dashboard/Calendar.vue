@@ -1,8 +1,8 @@
 <template>
-  <div class="calendar-container max-w-full mx-auto p-4">
-    <div class="header flex justify-between items-center mb-4">
+  <div class="calendar-container max-w-full md:w-3/4 mx-auto p-4">
+    <div class="header flex justify-center items-center mb-4">
       <button @click="prevMonth" class="bg-gray-300 text-gray-700 p-2 rounded shadow hover:bg-gray-400">&lt;</button>
-      <h2 class="text-lg font-bold text-gray-800">{{ monthYear }}</h2>
+      <h2 class="text-lg mx-8 font-bold text-gray-800">{{ monthYear }}</h2>
       <button @click="nextMonth" class="bg-gray-300 text-gray-700 p-2 rounded shadow hover:bg-gray-400">&gt;</button>
     </div>
     
@@ -57,7 +57,6 @@ const events = ref([
     date: new Date(new Date().setDate(new Date().getDate() + 3)), // 3 days from today
     time: '14:30',
   },
-  // Add more events here
 ]);
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -97,7 +96,6 @@ const nextMonth = () => {
   currentDate.value = addMonths(currentDate.value, 1);
 };
 
-// State to manage selected event and modal visibility
 const selectedEvent = ref(null);
 const isModalVisible = ref(false);
 
