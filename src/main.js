@@ -4,8 +4,11 @@ import App from "./App.vue";
 import router from "./router";
 import "./assets/tailwind.css";
 
+import "primeicons/primeicons.css";
+
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
+import AutoComplete from "primevue/autocomplete";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 
@@ -40,6 +43,8 @@ const app = createApp(App);
 
 app.component("TabView", TabView);
 app.component("TabPanel", TabPanel);
+app.component("Autocomplete", AutoComplete);
+
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.use(router);
