@@ -26,7 +26,6 @@
       </div>
     </div>
 
-    <!-- Event Details Modal -->
     <EventDetailsModal 
       v-if="selectedEvent" 
       :event="selectedEvent" 
@@ -54,7 +53,7 @@ const events = ref([
     id: 2,
     title: 'Event 2',
     description: 'Description for Event 2',
-    date: new Date(new Date().setDate(new Date().getDate() + 3)), // 3 days from today
+    date: new Date(new Date().setDate(new Date().getDate() + 3)), 
     time: '14:30',
   },
 ]);
