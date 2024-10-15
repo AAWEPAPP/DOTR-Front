@@ -1,7 +1,7 @@
 <template>
   <DashboardNavBar :userFirstName="user.firstName" :isAdminVisible="isAdminVisible" @toggleAdminDashboard="onToggleAdminDashboard"></DashboardNavBar>
   <AdminDashboard :isAdminVisible="isAdminVisible" @update:isAdminVisible="isAdminVisible = $event" />
-  <div class="flex justify-center items-center h-full w-full md:block"><Calendar /></div>
+  <div class="flex justify-center h-auto w-full md:block"><Calendar /></div>
 </template>
 
 <script setup>

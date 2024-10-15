@@ -1,6 +1,6 @@
 <template>
-  <div class="calendar-container max-w-full md:w-3/4 mx-auto p-4">
-    <div class="header flex justify-center items-center mb-4">
+  <div class=" max-w-full md:w-3/4 mx-auto p-4">
+    <div class=" flex justify-center items-center mb-4">
       <button @click="prevMonth" class="bg-gray-300 text-gray-700 p-2 rounded shadow hover:bg-gray-400">&lt;</button>
       <h2 class="text-lg mx-8 font-bold text-gray-800">{{ monthYear }}</h2>
       <button @click="nextMonth" class="bg-gray-300 text-gray-700 p-2 rounded shadow hover:bg-gray-400">&gt;</button>
@@ -18,7 +18,7 @@
         <div 
           v-for="event in day.events" 
           :key="event.id" 
-          class="event bg-blue-500 text-white text-sm p-1 mt-2 rounded shadow cursor-pointer hover:bg-blue-600 transition-colors duration-200"
+          class="event bg-blue-500 text-white text-sm p-1 mt-2 rounded shadow cursor-pointer hover:bg-blue-600 transition-colors duration-200 text-nowrap"
           @click="showEventDetails(event)"
         >
           {{ event.title }} - {{ event.time }}

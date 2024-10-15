@@ -13,30 +13,15 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { getAllEvents } from '../../services/apiService';
 
-    const events = ref([{
-        name: 'Event-1',
-        date: '2024-08-21',
-        time: '10:00',
-        description: 'This is an event description, but this description is quite long and should be truncated, it should be truncated, it should be truncated, it should be truncated, it should be truncated, it',
-    }, {
-        name: 'event-2',
-        date: '2024-08-21',
-        time: '10:00',
-        description: 'This is an event description',
-    },
-    {
-        name: 'event-3',
-        date: '2024-08-21',
-        time: '10:00',
-        description: 'This is an event description',
-    },
-    {
-        name: 'event-4',
-        date: '2024-08-21',
-        time: '10:00',
-        description: 'This is an event description',
-    },
+    const events = ref([])
+
+    async function fetchEvents() {
+        const response = await getAllEvents();
+        events.value = response.data;
+    }
+    fetchEvents();
+
     
-])
 </script>

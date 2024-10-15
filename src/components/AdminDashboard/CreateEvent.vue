@@ -56,6 +56,7 @@
 <script setup>
 import { ref } from 'vue';
 import Datepicker from 'vue3-datepicker';
+import { createEvent as createEventAPI } from "../../services/apiService";
 
 const newEvent = ref({
   title: '',
@@ -66,14 +67,24 @@ const newEvent = ref({
 
 const emit = defineEmits(['eventCreated', 'cancelCreation']);
 
-const createEvent = () => {
+const createEvent = async () => {
   if (newEvent.value.title && newEvent.value.description && newEvent.value.date && newEvent.value.time) {
-    emit('eventCreated', { 
-      ...newEvent.value, 
-      id: Date.now(), 
-      isEditing: false 
-    });
-    resetForm();
+    const date = new Date(newEvent.value.date);
+    const [hours, minutes] = newEvent.value.time.split(':');
+    date.setHours(hours);
+    date.setMinutes(minutes);
+
+    try {
+      const createdEvent = await createEventAPI({
+        title: newEvent.value.title,
+        description: newEvent.value.description,
+        date: date.toISOString(),
+      });
+      emit('eventCreated', createdEvent);
+      resetForm();
+    } catch (error) {
+      console.error("Error creating event:", error);
+    }
   }
 };
 

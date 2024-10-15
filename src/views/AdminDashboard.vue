@@ -34,7 +34,7 @@
           <Events />
         </div>
         <div v-if="activeTab === 1">
-          
+          <Users />
         </div>
         <div v-if="activeTab === 2">
           
@@ -47,6 +47,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import Events from '../components/AdminDashboard/Events.vue';
+import Users from '../components/AdminDashboard/Users.vue';
 
 const tabs = ref(['Events', 'Users', 'Tab 3']);
 const activeTab = ref(0);
