@@ -1,7 +1,7 @@
 <template>
   <div 
     v-if="isVisible"
-    class="fixed inset-0 bg-white bg-opacity-90 p-4 z-50 overflow-auto"
+    class="fixed inset-0 bg-white bg-opacity-90 p-4 z-50 overflow-y-hidden"
   >
     <div class="w-full max-w-4xl mx-auto bg-white rounded shadow-lg max-h-screen overflow-y-auto">
       <div class="border-b border-gray-300 flex justify-between items-center">

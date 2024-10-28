@@ -58,11 +58,12 @@
         <div class="col-span-1 text-left md:text-center flex flex-col md:flex-row md:justify-center items-start md:items-center">
           <span class="block text-xs font-semibold text-gray-500 md:hidden">Role:</span>
           <div v-if="user.isEditing" class="w-full">
-            <input
-              type="text"
-              v-model="user.tempRole"
-              class="border rounded p-2 w-full shadow-sm shadow-slate-500"
-            />
+            <select v-model="user.tempRole" class="border rounded p-2 w-full shadow-sm shadow-slate-500">
+              <option value="">Select a role</option>
+              <option v-for="option in roles" :key="option" :value="option">{{
+                option
+              }}</option>
+            </select>
           </div>
           <div v-else class="text-center">
             {{ user.role }}
@@ -127,7 +128,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { getUsers } from '../../services/apiService';
 
 // Sample user data
 const users = ref([
@@ -147,6 +149,19 @@ const filteredUsers = computed(() => {
       .includes(searchTerm.value.toLowerCase())
   );
 });
+
+// Get all users on page load
+ onMounted(async () => {
+  try {
+    const response = await getUsers();
+    users.value = response.data;
+
+    const rolesResponse = await getRoles();
+    roles.value = rolesResponse.data;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
+ })
 
 // Edit user functionality
 const editUser = (user) => {

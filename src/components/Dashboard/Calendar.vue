@@ -1,5 +1,5 @@
 <template>
-  <div class=" max-w-full md:w-3/4 mx-auto p-4">
+  <div class=" max-w-7xl md:w-3/4 mx-auto p-4 h-full">
     <div class=" flex justify-center items-center mb-4">
       <button @click="prevMonth" class="bg-gray-300 text-gray-700 p-2 rounded shadow hover:bg-gray-400">&lt;</button>
       <h2 class="text-lg mx-8 font-bold text-gray-800">{{ monthYear }}</h2>
@@ -36,9 +36,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, addMonths, subMonths, isSameMonth, isSameDay } from 'date-fns';
 import EventDetailsModal from './EventDetailsModal.vue';
+import { getAllEvents } from '../../services/apiService';
 
 const currentDate = ref(new Date());
 const events = ref([
@@ -57,6 +58,15 @@ const events = ref([
     time: '14:30',
   },
 ]);
+
+onMounted(async () => {
+  try {
+    const fetchedEvents = await getAllEvents();
+    events.value = fetchedEvents;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+  }
+})
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

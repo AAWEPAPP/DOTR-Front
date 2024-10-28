@@ -12,16 +12,19 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import { getAllEvents } from '../../services/apiService';
 
     const events = ref([])
 
-    async function fetchEvents() {
-        const response = await getAllEvents();
-        events.value = response.data;
-    }
-    fetchEvents();
+    onMounted( async () => {
+        try {
+            const response = await getAllEvents();
+            events.value = response.data;
+        } catch (error) {
+            console.error('Error fetching events:', error);
+        }
+    })
 
     
 </script>

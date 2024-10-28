@@ -23,19 +23,18 @@
 
     <div class="hidden md:flex space-x-4">
       <RegisterBtn :onClick="handleRegister" class="p-1 w-20 text-black rounded-md border border-gray-700 hover:bg-blue-600 hover:text-white hover:border-none  hover:shadow-md h-8"></RegisterBtn>
-      <LoginBtn :onClick="handleLogin"></LoginBtn>
+      <button :onClick="handleLogin" class="bg-blue-500 rounded-md text-white p-1 w-16">Login</button>
     </div>
 
     <div v-if="isMenuOpen" class="md:hidden absolute top-20 left-0 w-full bg-white text-black p-4 space-y-2 z-10">
       <RegisterBtn :onClick="handleRegister" class="block w-full p-1 text-center rounded-md border border-gray-700 shadow-lg hover:bg-blue-600 hover:text-white"></RegisterBtn>
-      <LoginBtn :onClick="handleLogin" class="block w-full text-center"></LoginBtn>
+      <button @click="handleLogin" class="block w-full text-center bg-blue-500 rounded-md text-white p-2">Login</button>
     </div>
   </nav>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import LoginBtn from '../UI/LoginBtn.vue';
 import RegisterBtn from '../UI/RegisterBtn.vue';
 import { useRouter } from 'vue-router';
 

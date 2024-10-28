@@ -1,18 +1,15 @@
 import axios from "axios";
 
-const AUTH_URL = "http://jason.jhanson.us/api/Auth/";
 const EVENT_URL = "http://jason.jhanson.us/api/Events/";
 const USER_URL = "http://jason.jhanson.us/api/Users/";
-
-const URLs = {
-	LOGIN: `${AUTH_URL}/login`,
-	REGISTER: `${AUTH_URL}/register`,
-};
 
 // Auth
 export const registerUser = async (formData) => {
 	try {
-		const response = await axios.post(`${API_URL}/register`, formData);
+		const response = await axios.post(
+			`http://jason.jhanson.us/api/Auth/register`,
+			formData
+		);
 		return response.data;
 	} catch (error) {
 		console.error("Error registering user:", error);
@@ -22,7 +19,13 @@ export const registerUser = async (formData) => {
 
 export const loginUser = async (email, password) => {
 	try {
-		const response = await axios.post(URLs.LOGIN, email, password);
+		const response = await axios.post(
+			"http://jason.jhanson.us/api/Auth/login",
+			{
+				email: email,
+				password: password,
+			}
+		);
 		return response.data;
 	} catch (error) {
 		console.error("Error logging in user:", error);
@@ -34,7 +37,9 @@ export const loginUser = async (email, password) => {
 
 export const getUsers = async () => {
 	try {
-		const response = await axios.get(USER_URL);
+		const response = await axios.get(USER_URL, {
+			withCredentials: true,
+		});
 		return response.data;
 	} catch (error) {
 		console.error("Error getting users:", error);
@@ -44,7 +49,13 @@ export const getUsers = async () => {
 
 export const updateUser = async (id, formData) => {
 	try {
-		const response = await axios.put(`${USER_URL}/${id}`, formData);
+		const response = await axios.put(
+			`http://jason.jhanson.us/api/Users/${id}`,
+			formData,
+			{
+				withCredentials: true,
+			}
+		);
 		return response.data;
 	} catch (error) {
 		console.error("Error updating user:", error);
@@ -55,7 +66,9 @@ export const updateUser = async (id, formData) => {
 // Events
 export const getAllEvents = async () => {
 	try {
-		const response = await axios.get(EVENT_URL);
+		const response = await axios.get(EVENT_URL, {
+			withCredentials: true,
+		});
 		return response.data;
 	} catch (error) {
 		console.error("Error getting events:", error);
@@ -66,7 +79,10 @@ export const getAllEvents = async () => {
 export const getEventById = async (id) => {
 	try {
 		const response = await axios.get(
-			"http://jason.jhanson.us/api/Events/".replace("{id}", id)
+			`http://jason.jhanson.us/api/Events/${id}`,
+			{
+				withCredentials: true,
+			}
 		);
 		return response.data;
 	} catch (error) {
@@ -77,7 +93,12 @@ export const getEventById = async (id) => {
 
 export const createEvent = async (formData) => {
 	try {
-		const response = await axios.post(EVENT_URL, formData);
+		const response = await axios.post(EVENT_URL, formData, {
+			withCredentials: true,
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		});
 		return response.data;
 	} catch (error) {
 		console.error("Error creating event:", error);
@@ -88,8 +109,14 @@ export const createEvent = async (formData) => {
 export const updateEvent = async (id, formData) => {
 	try {
 		const response = await axios.put(
-			URLs.GET_EVENTS_BY_ID.replace("{id}", id),
-			formData
+			`http://jason.jhanson.us/api/Events/${id}`,
+			formData,
+			{
+				withCredentials: true,
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			}
 		);
 		return response.data;
 	} catch (error) {
@@ -100,9 +127,45 @@ export const updateEvent = async (id, formData) => {
 
 export const deleteEvent = async (id) => {
 	try {
-		await axios.delete(URLs.GET_EVENTS_BY_ID.replace("{id}", id));
+		await axios.delete(`http://jason.jhanson.us/api/Events/${id}`, {
+			withCredentials: true,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 	} catch (error) {
 		console.error("Error deleting event:", error);
 		throw error;
 	}
 };
+
+export const validateAuthToken = async () => {
+	try {
+		const response = await axios.post(
+			"http://jason.jhanson.us/api/Auth/auth",
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+				withCredentials: true,
+			}
+		);
+
+		console.log("Validation successful:", response.data);
+	} catch (error) {
+		console.error("Validation failed:", error);
+	}
+};
+export async function getRoles() {
+	try {
+		// const response = await axios.get("/api/Users/roles");
+		const response = [
+			{ id: 1, name: "Admin" },
+			{ id: 2, name: "User" },
+		];
+		return response;
+	} catch (error) {
+		console.error("Error fetching roles:", error);
+		throw error;
+	}
+}
