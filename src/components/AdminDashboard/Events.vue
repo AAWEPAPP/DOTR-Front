@@ -128,10 +128,7 @@ import Datepicker from 'vue3-datepicker';
 import { getAllEvents, updateEvent as updateEventAPI, deleteEvent as deleteEventAPI, validateAuthToken as validateAuth } from "../../services/apiService";
 
 // Sample event data
-const events = ref([
-  { id: 1, title: "Event 1", description: "This is the first event.", displayDate: "2022-12-31", displayTime: "15:00" },
-  { id: 2, title: "Event 2", description: "This is the second event.", displayDate: "2023-01-01", displayTime: "10:00" }
-]);
+const events = ref([]);
 
 onMounted(() => {
   getAllEventsFromAPI();
@@ -143,8 +140,8 @@ const showCreateEventForm = ref(false);
 const getAllEventsFromAPI = async () => {
   try{
     const response = await getAllEvents();
-    events.value = response.data;}
-    catch(error){console.error(error);}
+    events.value = response.data || [];
+  } catch(error){console.error(error);}
 }
 
 // Add Event

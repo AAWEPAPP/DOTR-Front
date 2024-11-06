@@ -13,13 +13,13 @@
 
 <script setup>
     import { ref, onMounted } from 'vue';
-    import { getAllEvents } from '../../services/apiService';
+    import { getLandingEvents } from '../../services/apiService';
 
     const events = ref([])
 
     onMounted( async () => {
         try {
-            const response = await getAllEvents();
+            const response = await getLandingEvents();
             events.value = response.data;
         } catch (error) {
             console.error('Error fetching events:', error);

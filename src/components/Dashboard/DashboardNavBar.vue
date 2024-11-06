@@ -21,11 +21,11 @@
       </div>
       <div class="hidden md:flex md:gap-6 ">
         <button v-if="isAdmin" @click="$emit('toggleAdminDashboard')" class="rounded-md border border-blue-600 p-1 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors duration-300">{{ isAdminVisible ? 'Close' : 'Admin' }}</button>
-        <button class="rounded-md bg-red-600 text-white p-1">Logout</button>
+        <button @click="handleLogout()" class="rounded-md bg-red-600 text-white p-1">Logout</button>
       </div>
       <div v-if="isMenuOpen" class="md:hidden flex flex-col justify-center items-center absolute top-20 left-0 w-full bg-white text-black p-4 space-y-2 z-10">
         <button v-if="isAdmin" @click="$emit('toggleAdminDashboard')" class="block w-1/4 p-1 text-center rounded-md border border-gray-700 shadow-lg hover:bg-blue-600 hover:text-white">{{ isAdminVisible ? 'Close' : 'Admin' }}</button>
-        <button class="block p-1 rounded-md text-white  w-1/4 text-center bg-red-500">Logout</button>
+        <button type="button" @click="handleLogout()" class="block p-1 rounded-md text-white  w-1/4 text-center bg-red-500">Logout</button>
       </div>
     </div
    >
@@ -34,6 +34,10 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { useRouter } from 'vue-router';
+    import { logout } from '../../services/apiService';
+
+    const router = useRouter();
 
     const isMenuOpen = ref(false);
 
@@ -55,4 +59,17 @@
     });
     const isAdmin = ref(props.admin);
     const firstName = ref(props.userFirstName);
+
+   async function handleLogout() {
+    console.log('Logging out...');
+      try{
+        const response = await logout();
+        if(response.status === 204 || (response.data && response.data.status === "logged_out")) {
+          router.push('/');
+        } 
+        console.log('Logged out successfully');
+      } catch (error) {
+        console.error('Failed to log out:', error);
+   }
+    }
 </script>

@@ -24,11 +24,31 @@ export const loginUser = async (email, password) => {
 			{
 				email: email,
 				password: password,
+			},
+			{
+				withCredentials: true,
 			}
 		);
+		console.log("Login successful:", response.data);
 		return response.data;
 	} catch (error) {
 		console.error("Error logging in user:", error);
+		throw error;
+	}
+};
+
+export const logout = async () => {
+	try {
+		const response = await axios.post(
+			"http://jason.jhanson.us/api/Auth/logout",
+			{},
+			{
+				withCredentials: true,
+			}
+		);
+		return response;
+	} catch (error) {
+		console.error("Error logging out user:", error);
 		throw error;
 	}
 };
@@ -66,9 +86,17 @@ export const updateUser = async (id, formData) => {
 // Events
 export const getAllEvents = async () => {
 	try {
-		const response = await axios.get(EVENT_URL, {
-			withCredentials: true,
-		});
+		const response = await axios.get(EVENT_URL);
+		return response.data;
+	} catch (error) {
+		console.error("Error getting events:", error);
+		throw error;
+	}
+};
+
+export const getLandingEvents = async () => {
+	try {
+		const response = await axios.get(EVENT_URL);
 		return response.data;
 	} catch (error) {
 		console.error("Error getting events:", error);

@@ -29,6 +29,9 @@
     import InputText from 'primevue/inputtext';
     import { ref } from 'vue';
     import { loginUser } from '../../services/apiService';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
 
     const formData = ref({ email: '', password: '' });
     const successMessage = ref(null);
@@ -41,6 +44,7 @@
         if (data.message === "Login successful") {
             successMessage.value = 'Logged in successfully!';
             formData.value = { email: '', password: '' };
+            router.push('/dashboard');
         } else {
             errorMessage.value = 'Invalid email or password.';
         }
