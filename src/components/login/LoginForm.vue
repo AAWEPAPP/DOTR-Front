@@ -18,7 +18,7 @@
                 placeholder="Password"
             />
             <p class="text-sm -mt-5">New user? Request access <a class="text-blue-500 underline" href="/register">here</a></p>
-            <button @click="handleSubmit" class="bg-blue-500 p-2 rounded-md text-white -mt-4">Login</button>
+            <button class="bg-blue-500 p-2 rounded-md text-white -mt-4">Login</button>
             <p v-if="errorMessage" class="text-red-500 text-xs mt-2">{{ errorMessage }}</p>
             <p v-if="successMessage" class="text-green-500 text-xs mt-2">{{ successMessage }}</p>
         </form>
@@ -44,6 +44,9 @@
         if (data.message === "Login successful") {
             successMessage.value = 'Logged in successfully!';
             formData.value = { email: '', password: '' };
+            console.log(data);
+            localStorage.setItem('firstName', data.firstName);
+            localStorage.setItem('userId', data.userId);
             router.push('/dashboard');
         } else {
             errorMessage.value = 'Invalid email or password.';

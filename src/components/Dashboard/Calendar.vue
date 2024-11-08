@@ -1,5 +1,5 @@
 <template>
-  <div class=" max-w-7xl md:w-3/4 mx-auto p-4 h-full">
+  <div class=" max-w-7xl md:w-3/4 md:mx-auto p-4 h-full">
     <div class=" flex justify-center items-center mb-4">
       <button @click="prevMonth" class="bg-gray-300 text-gray-700 p-2 rounded shadow hover:bg-gray-400">&lt;</button>
       <h2 class="text-lg mx-8 font-bold text-gray-800">{{ monthYear }}</h2>
@@ -43,20 +43,6 @@ import { getAllEvents } from '../../services/apiService';
 
 const currentDate = ref(new Date());
 const events = ref([
-  {
-    id: 1,
-    title: 'Event 1',
-    description: 'Description for Event 1',
-    date: new Date(),
-    time: '10:00',
-  },
-  {
-    id: 2,
-    title: 'Event 2',
-    description: 'Description for Event 2',
-    date: new Date(new Date().setDate(new Date().getDate() + 3)), 
-    time: '14:30',
-  },
 ]);
 
 onMounted(async () => {

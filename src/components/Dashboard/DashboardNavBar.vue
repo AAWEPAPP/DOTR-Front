@@ -52,7 +52,7 @@
         },
         admin: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         isAdminVisible: Boolean,
 

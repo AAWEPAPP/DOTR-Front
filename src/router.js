@@ -33,7 +33,7 @@ router.beforeEach(async (to, from, next) => {
 	if (to.matched.some((record) => record.meta.requiresAuth)) {
 		try {
 			const response = await axios.get(
-				"http://jason.jhanson.us/api/Auth/auth",
+				"https://dotr.jhanson.us/api/Auth/auth",
 				{
 					withCredentials: true,
 				}

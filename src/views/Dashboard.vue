@@ -5,16 +5,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getUserById } from '../services/apiService';
 
 import AdminDashboard from '../views/AdminDashboard.vue';
 import DashboardNavBar from '../components/Dashboard/DashboardNavBar.vue';
 import Calendar from '../components/Dashboard/Calendar.vue';
 
 const isAdminVisible = ref(false);
-const user = {
-  firstName: 'Alec'
+
+const firstName = localStorage.getItem('firstName');
+const userId = localStorage.getItem('userId');
+
+const user = { firstName: firstName };
+
+onMounted (() => {
+  getAdminStatus();
+});
+
+const getAdminStatus = async () => {
+  try{
+    const response = await getUserById(userId);
+    console.log(response);
+  } catch(error){
+    console.error(error);
+  }
 }
+
 const onToggleAdminDashboard = () => {
   isAdminVisible.value = !isAdminVisible.value;
 };

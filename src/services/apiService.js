@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const EVENT_URL = "http://jason.jhanson.us/api/Events/";
-const USER_URL = "http://jason.jhanson.us/api/Users/";
+const EVENT_URL = "https://dotr.jhanson.us/api/Events/";
+const USER_URL = "https://dotr.jhanson.us/api/Users/";
 
 // Auth
 export const registerUser = async (formData) => {
 	try {
 		const response = await axios.post(
-			`http://jason.jhanson.us/api/Auth/register`,
+			`https://dotr.jhanson.us/api/Auth/register`,
 			formData
 		);
 		return response.data;
@@ -20,7 +20,7 @@ export const registerUser = async (formData) => {
 export const loginUser = async (email, password) => {
 	try {
 		const response = await axios.post(
-			"http://jason.jhanson.us/api/Auth/login",
+			"https://dotr.jhanson.us/api/Auth/login",
 			{
 				email: email,
 				password: password,
@@ -40,7 +40,7 @@ export const loginUser = async (email, password) => {
 export const logout = async () => {
 	try {
 		const response = await axios.post(
-			"http://jason.jhanson.us/api/Auth/logout",
+			"https://dotr.jhanson.us/api/Auth/logout",
 			{},
 			{
 				withCredentials: true,
@@ -67,10 +67,22 @@ export const getUsers = async () => {
 	}
 };
 
+export const getUserById = async (id) => {
+	try {
+		const response = await axios.get(`${USER_URL}${id}`, {
+			withCredentials: true,
+		});
+		return response.data;
+	} catch (error) {
+		console.error("Error getting user by ID:", error);
+		throw error;
+	}
+};
+
 export const updateUser = async (id, formData) => {
 	try {
 		const response = await axios.put(
-			`http://jason.jhanson.us/api/Users/${id}`,
+			`https://dotr.jhanson.us/api/Users/${id}`,
 			formData,
 			{
 				withCredentials: true,
@@ -86,7 +98,11 @@ export const updateUser = async (id, formData) => {
 // Events
 export const getAllEvents = async () => {
 	try {
-		const response = await axios.get(EVENT_URL);
+		const response = await axios.get(EVENT_URL, {
+			headers: {
+				"Access-Control-Allow-Origin": "https://localhost:5173",
+			},
+		});
 		return response.data;
 	} catch (error) {
 		console.error("Error getting events:", error);
@@ -107,7 +123,7 @@ export const getLandingEvents = async () => {
 export const getEventById = async (id) => {
 	try {
 		const response = await axios.get(
-			`http://jason.jhanson.us/api/Events/${id}`,
+			`https://dotr.jhanson.us/api/Events/${id}`,
 			{
 				withCredentials: true,
 			}
@@ -137,7 +153,7 @@ export const createEvent = async (formData) => {
 export const updateEvent = async (id, formData) => {
 	try {
 		const response = await axios.put(
-			`http://jason.jhanson.us/api/Events/${id}`,
+			`https://dotr.jhanson.us/api/Events/${id}`,
 			formData,
 			{
 				withCredentials: true,
@@ -155,7 +171,7 @@ export const updateEvent = async (id, formData) => {
 
 export const deleteEvent = async (id) => {
 	try {
-		await axios.delete(`http://jason.jhanson.us/api/Events/${id}`, {
+		await axios.delete(`https://dotr.jhanson.us/api/Events/${id}`, {
 			withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",
@@ -170,7 +186,7 @@ export const deleteEvent = async (id) => {
 export const validateAuthToken = async () => {
 	try {
 		const response = await axios.post(
-			"http://jason.jhanson.us/api/Auth/auth",
+			"https://dotr.jhanson.us/api/Auth/auth",
 			{
 				headers: {
 					"Content-Type": "application/json",
